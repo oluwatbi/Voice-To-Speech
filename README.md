@@ -1,10 +1,29 @@
-# voice_to_text
+# Voice To Text
 
-A new Flutter project.
+Flutter App that convert speech to text
 
-## Getting Started
+### Package used
 
-This project is a starting point for a Flutter application.
+- [Speech to Text](https://pub.dev/packages/speech_to_text)
+
+### Screenshots
+
+<table>
+  <tr>
+    <td><img src="https://res.cloudinary.com/oluwatbi/image/upload/v1596555765/technologies/Screenshot_20200804-162545.jpg" alt="Screen Shots" /></td>
+    <td><img src="https://res.cloudinary.com/oluwatbi/image/upload/v1596556016/technologies/Screenshot_20200804-162631.jpg" alt="Screen Shots" /></td>
+    <td><img src="https://res.cloudinary.com/oluwatbi/image/upload/v1596555817/technologies/Screenshot_20200804-162601.jpg" alt="Screen Shots" /></td>
+  </tr>
+</table>
+
+
+### Todo
+- [x] Convert speech to text
+- [ ] Highlight keywords 
+- [ ] Add color to highlighted words
+- [ ] Add clipboard to copy converted text
+
+## Getting Started With Flutter
 
 A few resources to get you started if this is your first Flutter project:
 
