@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'about.dart';
 
 class VttScreen extends StatefulWidget {
   @override
@@ -64,6 +65,10 @@ class _VttScreenState extends State<VttScreen> {
               ),
             ),
             ListTile(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => About()));
+              },
               leading: Icon(Icons.info_outline),
               title: Text('About'),
             ),
