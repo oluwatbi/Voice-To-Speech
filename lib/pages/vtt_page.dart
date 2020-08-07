@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'about.dart';
+import 'package:share/share.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
 class VttScreen extends StatefulWidget {
   @override
@@ -10,8 +13,9 @@ class VttScreen extends StatefulWidget {
 class _VttScreenState extends State<VttScreen> {
   SpeechToText _speak;
   bool _isSpeaking = false;
-  String _words = 'Tap the mic to start speaking...';
+  String _words = '';
 
+// function to handle the Speech to text functionality
   void _listen() async {
     if (_isSpeaking == false) {
       bool isReady = await _speak.initialize(
@@ -30,6 +34,23 @@ class _VttScreenState extends State<VttScreen> {
     } else {
       setState(() => _isSpeaking = false);
       _speak.stop();
+    }
+  }
+
+  void _share() {
+    final String _isWords = _words;
+    if (_isWords.isEmpty) {
+      print(" cannot share empty text");
+    } else {
+      Share.share(_words);
+    }
+  }
+
+  void _copy() {
+    if (_words.isEmpty) {
+      print('cannot copy empty word');
+    } else {
+      Clipboard.setData(ClipboardData(text: _words));
     }
   }
 
@@ -81,16 +102,75 @@ class _VttScreenState extends State<VttScreen> {
       ),
       body: SingleChildScrollView(
           reverse: true,
-          child: Container(
-            padding: EdgeInsets.all(30.0),
-            child: Center(
-              child: Text(
-                _words,
-                style: TextStyle(
-                  fontSize: 30.0,
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(8.0),
+                color: Colors.green[700],
+                child: Text(
+                  'Tap the mic button to start speaking',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
+              StickyHeader(
+                header: Container(
+                  height: 70.0,
+                  width: 500.0,
+                  color: Colors.deepPurple[800],
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(onPressed: null, icon: Icon(Icons.edit)),
+                          Text('Edit'),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                              onPressed: _share, icon: Icon(Icons.share)),
+                          Text('Share'),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                              onPressed: _copy, icon: Icon(Icons.content_copy)),
+                          Text('Copy'),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                              onPressed: null, icon: Icon(Icons.translate)),
+                          Text('Translate'),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                content: Container(
+                  padding: EdgeInsets.all(30.0),
+                  child: Center(
+                    child: SelectableText(
+                      _words,
+                      style: TextStyle(
+                        fontSize: 30.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           )),
 
       //Mic Function
@@ -98,7 +178,10 @@ class _VttScreenState extends State<VttScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: _listen,
-        child: Icon(_isSpeaking ? Icons.mic : Icons.mic_none),
+        child: Icon(
+          _isSpeaking ? Icons.mic : Icons.mic_off,
+          color: Colors.white,
+        ),
       ),
     );
   }

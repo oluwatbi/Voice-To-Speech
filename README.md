@@ -21,7 +21,7 @@ Flutter App that convert speech to text
 - [x] Convert speech to text
 - [ ] Highlight keywords 
 - [ ] Add color to highlighted words
-- [ ] Add clipboard to copy converted text
+- [x] Add clipboard to copy converted text
 
 ## Getting Started With Flutter
 

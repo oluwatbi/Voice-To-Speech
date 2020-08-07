@@ -12,8 +12,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Voice to Text',
       theme: ThemeData(
-        brightness: Brightness.dark,
-      ),
+          brightness: Brightness.dark,
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: Colors.blue,
+          )),
       home: VttScreen(),
     );
   }
